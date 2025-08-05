@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-service
+  annotations:
+    beta.cloud.google.com/backend-config: '{"default": "auth-backendconfig"}'
+spec:
+  selector:
+    app: auth-service
+  ports:
+    - port: 80
+      targetPort: 8083

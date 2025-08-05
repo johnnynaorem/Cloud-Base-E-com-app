@@ -1,0 +1,6 @@
+{
+  "name": "Gemini E-Commerce",
+  "description": "An AI-powered e-commerce application that uses Gemini to generate product images, showcasing different views for customer and admin roles.",
+  "requestFramePermissions": [],
+  "prompt": ""
+}
