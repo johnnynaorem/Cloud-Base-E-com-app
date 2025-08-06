@@ -23,7 +23,7 @@ A modern, cloud-native e-commerce application built with **GoLang** and **React*
 | `auth-service`   | Handles authentication & JWT       | GKE        |
 | `product-service`| Manages product catalog             | GKE        |
 | `order-service`  | Handles order processing            | GKE        |
-| `payment-service`| Manages payment operations          | Cloud Run (optional) |
+| `payment-service`| Manages payment operations          | GKE        |
 
 ---
 
