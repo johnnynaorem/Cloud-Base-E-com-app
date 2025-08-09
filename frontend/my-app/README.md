@@ -6,9 +6,6 @@ A scalable, responsive, and secure e-commerce platform built with **React** and 
 
 ## 📸 Demo
 
-> [Live Demo](https://your-deployed-site.com)  
-> *(Include a screenshot or GIF preview below)*
-
 ![App Screenshot](./assets/screenshot.png)
 
 ---
@@ -40,4 +37,9 @@ A scalable, responsive, and secure e-commerce platform built with **React** and 
 
 ```bash
 git clone https://github.com/johnnynaorem/Cloud-Base-E-com-app.git
-cd cloud-Base-E-com-app
+
+### 2. Run tha Application
+
+```bash
+cd Cloud-Base-E-com-app/frontend/my-app
+npm run dev
