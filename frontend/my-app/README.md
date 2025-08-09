@@ -40,6 +40,5 @@ git clone https://github.com/johnnynaorem/Cloud-Base-E-com-app.git
 
 ### 2. Run tha Application
 
-```bash
 cd Cloud-Base-E-com-app/frontend/my-app
 npm run dev
