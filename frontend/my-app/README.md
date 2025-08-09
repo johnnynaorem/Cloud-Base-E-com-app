@@ -38,7 +38,7 @@ A scalable, responsive, and secure e-commerce platform built with **React** and 
 ```bash
 git clone https://github.com/johnnynaorem/Cloud-Base-E-com-app.git
 
-### 2. Run tha Application
-
+Run tha Application
 cd Cloud-Base-E-com-app/frontend/my-app
+npm install
 npm run dev
