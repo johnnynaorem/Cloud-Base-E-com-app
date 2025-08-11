@@ -12,16 +12,14 @@ spec:
       labels:
         app: auth-service
     spec:
-      serviceAccountName: johnnynao10@gmail.com
+      serviceAccountName: 340442566100-compute@developer.gserviceaccount.com
       containers:
       - name: auth-service
         image: us-central1-docker.pkg.dev/johnny-projectt/tech-ready-demo/auth-microservice:v2
         ports:
         - containerPort: 8083
         env:
-        - name: GOOGLE_APPLICATION_CREDENTIALS
-          value: /secrets/credentials.json
-          name: DOTENV_CONFIG_PATH
+        - name: DOTENV_CONFIG_PATH
           value: /secrets/app.env
         volumeMounts:
         - name: secrets-store
@@ -30,8 +28,7 @@ spec:
       volumes:
         - name: secrets-store
           csi:
-              driver: secrets-store.csi.k8s.io
-              readOnly: true
-              volumeAttributes:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
               secretProviderClass: "app-secret-config"
-
