@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"os"
 	"paymentMicroservice/config"
 	"paymentMicroservice/handlers"
 	"paymentMicroservice/repository"
@@ -14,7 +15,12 @@ import (
 )
 
 func init() {
-	if err := godotenv.Load(); err != nil {
+	envPath := os.Getenv("DOTENV_CONFIG_PATH")
+	if envPath == "" {
+		envPath = ".env" // fallback for local dev
+	}
+
+	if err := godotenv.Load(envPath); err != nil {
 		log.Println("⚠️  No .env file found, using environment variables")
 	}
 }

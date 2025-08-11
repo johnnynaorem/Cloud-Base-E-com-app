@@ -6,7 +6,7 @@ metadata:
     beta.cloud.google.com/backend-config: '{"default": "order-backendconfig"}'
 spec:
   selector:
-    app: order-service
+    app: order-service  
   ports:
     - port: 80
       targetPort: 8080

@@ -21,12 +21,6 @@ WORKDIR /root
 
 # Copy built binary and .env file
 COPY --from=builder /app/server /server
-COPY --from=builder /app/.env .env 
-
-COPY --from=builder /app/johnny-projectt-6d79dbdc53bb.json /app/credentials.json
-
-# # Set Google credentials ENV variable
-ENV GOOGLE_APPLICATION_CREDENTIALS=/app/credentials.json
 
 EXPOSE 8082
 CMD ["/server"]

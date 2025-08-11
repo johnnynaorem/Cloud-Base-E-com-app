@@ -4,6 +4,7 @@ import (
 	"auth-micro/models"
 	"fmt"
 	"net/http"
+	"os"
 	"strings"
 	"time"
 
@@ -55,7 +56,7 @@ func VerifyToken(accessToken string) (*UserClaims, error) {
 			if !ok {
 				return nil, fmt.Errorf("unexpected token signing method")
 			}
-			return []byte("SECRET_KEY"), nil
+			return []byte(os.Getenv("SECRET KEY")), nil
 		},
 	)
 	if err != nil {

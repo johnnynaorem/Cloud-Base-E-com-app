@@ -4,6 +4,7 @@ import (
 	"auth-micro/config"
 	"auth-micro/jwt"
 	"log"
+	"os"
 	"time"
 
 	"github.com/iris-contrib/middleware/cors"
@@ -20,7 +21,12 @@ var dbConnector *gorm.DB
 var err error
 
 func init() {
-	if err := godotenv.Load(); err != nil {
+	envPath := os.Getenv("DOTENV_CONFIG_PATH")
+	if envPath == "" {
+		envPath = ".env" // fallback for local dev
+	}
+
+	if err := godotenv.Load(envPath); err != nil {
 		log.Println("⚠️  No .env file found, using environment variables")
 	}
 	var err error
@@ -39,7 +45,7 @@ func main() {
 	}
 
 	// * Create a new jwt manager
-	jwtManager = jwt.NewJWTManager("SECRET_KEY", 5*time.Hour)
+	jwtManager = jwt.NewJWTManager(os.Getenv("SECRET KEY"), 5*time.Hour)
 
 	app := iris.New()
 
