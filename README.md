@@ -1,27 +1,57 @@
-# Cloud-Based E-commerce Application
+# 🛒 Cloud-Based E-commerce Application
 
-This project is part of your GoLang learning journey. It focuses on building a cloud-based e-commerce application using microservices architecture and modern deployment practices. The repository contains code and documentation for implementing a scalable and efficient application.
+A modern, cloud-native e-commerce application built with **GoLang** and **React**, following a microservices architecture and deployed on **Google Kubernetes Engine (GKE)**. This project demonstrates scalable cloud deployment, CI/CD readiness, and integration with Google Cloud services like **Cloud SQL** and **Cloud Run**.
 
-## Features
-- Four microservices built with GoLang.
-- Frontend application developed using React.
-- Deployment on Google Kubernetes Engine (GKE) for scalability and reliability.
-- Ingress configuration for a single external IP to streamline access.
-- Integration with Google Cloud SQL for managing relational databases.
-- Option to deploy specific services on Google Cloud Run for serverless execution.
+---
 
-## Getting Started
-1. Clone the repository.
-2. Follow the setup instructions in the documentation.
-3. Configure Google Cloud SQL for database connectivity.
-4. Deploy the application on GKE or Cloud Run as per the service requirements.
-5. Explore the functionality and test the application.
+## 🚀 Features
 
-## Goals
-- Strengthen expertise in GoLang and React.
-- Learn microservices architecture and cloud deployment.
-- Gain hands-on experience with Google Cloud Platform (GCP) services like GKE, Cloud SQL, and Cloud Run.
-- Build a scalable and production-ready application.
-- Implement best practices for Kubernetes, ingress configuration, and serverless deployments.
+- ✅ Four microservices developed using **GoLang**
+- ✅ Frontend application developed using **React + Vite**
+- ✅ Deployment on **Google Kubernetes Engine (GKE)** for scalability and reliability
+- ✅ Ingress configuration for unified access via a single external IP
+- ✅ Integration with **Google Cloud SQL** for managing relational data
+- ✅ Optional deployment of services using **Google Cloud Run** (serverless)
+- ✅ Secure token-based communication between services (JWT)
 
-Happy coding!
+---
+
+## 📁 Microservices Overview
+
+| Service          | Description                        | Deployment |
+|------------------|------------------------------------|------------|
+| `auth-service`   | Handles authentication & JWT       | GKE        |
+| `product-service`| Manages product catalog             | GKE        |
+| `order-service`  | Handles order processing            | GKE        |
+| `payment-service`| Manages payment operations          | GKE        |
+
+---
+
+## 🖥️ Frontend
+
+- Developed with **React** and **Vite**
+- Interacts with backend services via REST APIs
+- Deployed via **GKE** or optionally via **Cloud Run**
+- Configurable environment for API endpoints
+
+---
+
+## ☁️ Google Cloud Integration
+
+| Service           | Purpose                          |
+|-------------------|----------------------------------|
+| GKE               | Container orchestration          |
+| Cloud SQL         | Relational database              |
+| Cloud Run         | Serverless deployment (optional) |
+| Artifact Registry | Container image hosting          |
+| Ingress           | Unified routing for microservices|
+
+---
+
+## 🛠️ Getting Started
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/your-username/cloud-ecommerce-app.git
+cd cloud-ecommerce-app
