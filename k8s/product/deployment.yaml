@@ -26,5 +26,5 @@ spec:
               cpu: "500m"
               memory: "1Gi"
           env:
-          - name: SECRECT_CREDENTIALS
+          - name: SECRET_CREDENTIALS
           value: "projects/johnny-projectt/secrets/app-env-config/versions/latest"  

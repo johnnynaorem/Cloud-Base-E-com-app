@@ -10,7 +10,6 @@ import (
 	"time"
 
 	"github.com/iris-contrib/middleware/cors"
-	"github.com/joho/godotenv"
 	"github.com/kataras/iris/v12"
 
 	"go.uber.org/zap"
@@ -30,7 +29,7 @@ var (
 func loadSecretsFromGCP() {
 	ctx := context.Background()
 
-	secretName := os.Getenv("SECRECT_CREDENTIALS")
+	secretName := os.Getenv("SECRET_CREDENTIALS")
 	if secretName == "" {
 		log.Fatal("❌ SECRET_NAME environment variable not set")
 	}

@@ -19,5 +19,5 @@ spec:
         ports:
         - containerPort: 8083
         env:
-        - name: SECRECT_CREDENTIALS
+        - name: SECRET_CREDENTIALS
           value: "projects/johnny-projectt/secrets/app-env-config/versions/latest"
