@@ -3,8 +3,10 @@ package main
 import (
 	"auth-micro/config"
 	"auth-micro/jwt"
+	"context"
 	"log"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/iris-contrib/middleware/cors"
@@ -13,25 +15,62 @@ import (
 
 	"go.uber.org/zap"
 	"gorm.io/gorm"
+
+	secretmanager "cloud.google.com/go/secretmanager/apiv1"
+	secretmanagerpb "google.golang.org/genproto/googleapis/cloud/secretmanager/v1"
 )
 
-var logger *zap.Logger
-var jwtManager *jwt.JWTManager
-var dbConnector *gorm.DB
-var err error
+var (
+	logger      *zap.Logger
+	jwtManager  *jwt.JWTManager
+	dbConnector *gorm.DB
+	err         error
+)
+
+func loadSecretsFromGCP() {
+	ctx := context.Background()
+
+	secretName := os.Getenv("SECRECT_CREDENTIALS")
+	if secretName == "" {
+		log.Fatal("❌ SECRET_NAME environment variable not set")
+	}
+
+	client, err := secretmanager.NewClient(ctx)
+	if err != nil {
+		log.Fatalf("❌ Failed to create secretmanager client: %v", err)
+	}
+	defer client.Close()
+
+	req := &secretmanagerpb.AccessSecretVersionRequest{Name: secretName}
+	result, err := client.AccessSecretVersion(ctx, req)
+	if err != nil {
+		log.Fatalf("❌ Failed to access secret version: %v", err)
+	}
+
+	secretData := string(result.Payload.Data)
+
+	lines := strings.Split(secretData, "\n")
+	for _, line := range lines {
+		if strings.TrimSpace(line) == "" || strings.HasPrefix(line, "#") {
+			continue
+		}
+		parts := strings.SplitN(line, "=", 2)
+		if len(parts) == 2 {
+			key := strings.TrimSpace(parts[0])
+			value := strings.TrimSpace(parts[1])
+			os.Setenv(key, value)
+		}
+	}
+	log.Println("✅ Secrets loaded into environment variables")
+}
 
 func init() {
-	envPath := os.Getenv("DOTENV_CONFIG_PATH")
-	if envPath == "" {
-		envPath = ".env" // fallback for local dev
-	}
+	// Load secrets directly from GCP Secret Manager
+	loadSecretsFromGCP()
 
-	if err := godotenv.Load(envPath); err != nil {
-		log.Println("⚠️  No .env file found, using environment variables")
-	}
+	// Setup logger
 	var err error
 	logger, err = zap.NewDevelopment()
-
 	if err != nil {
 		panic(err)
 	}
@@ -41,12 +80,12 @@ func init() {
 func main() {
 	dbConnector, err = config.ConnectToDB()
 	if err != nil {
-		logger.Fatal("Failed to connect to the database", zap.Error(err))
+		logger.Fatal("❌ Failed to connect to the database", zap.Error(err))
 	}
 
-	// * Create a new jwt manager
-	jwtManager = jwt.NewJWTManager(os.Getenv("SECRET KEY"), 5*time.Hour)
+	jwtManager = jwt.NewJWTManager(os.Getenv("SECRET_KEY"), 5*time.Hour)
 
+	// Iris setup
 	app := iris.New()
 
 	crs := cors.New(cors.Options{

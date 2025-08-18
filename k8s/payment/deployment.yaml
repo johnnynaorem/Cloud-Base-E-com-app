@@ -12,10 +12,10 @@ spec:
       labels: 
         app: payment-service
     spec:
-      serviceAccountName: 340442566100-compute@developer.gserviceaccount.com
+      serviceAccountName: common-app-ksa
       containers:
         - name: payment-service
-          image: us-central1-docker.pkg.dev/johnny-projectt/tech-ready-demo/payment-microservice:v2
+          image: us-central1-docker.pkg.dev/johnny-projectt/tech-ready-demo/payment-microservice:v3
           ports:
             - containerPort: 8081
           resources:
@@ -26,16 +26,5 @@ spec:
               cpu: "500m"
               memory: "1Gi"
           env:
-          - name: DOTENV_CONFIG_PATH
-          value: /secrets/app.env
-          volumeMounts:
-          - name: secrets-store
-          mountPath: /secrets
-          readOnly: true
-      volumes:
-        - name: secrets-store
-          csi:
-            driver: secrets-store.csi.k8s.io
-            readOnly: true
-            volumeAttributes:
-              secretProviderClass: "app-secret-config"    
+          - name: SECRECT_CREDENTIALS
+          value: "projects/johnny-projectt/secrets/app-env-config/versions/latest"
